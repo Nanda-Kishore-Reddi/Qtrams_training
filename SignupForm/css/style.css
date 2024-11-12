@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  @font-face {
+    font-family: 'Norse-Bold';
+    src: url('../fonts/Norse-Bold.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000000;
+    /* transform: scale(0.9); */
+  }
+  
+  .container {
+    display: flex;
+    width: 68%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  .left-section {
+    width: 120%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .left-section a{
+    color: #fff;
+  }
+  
+  .background-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .logo-overlay {
+    position: absolute;
+    top: 29%;
+    left: 50%;
+    display: flex;
+    width: 100%;
+    height: 15%;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.5);
+    transform: translate(-50%, -50%);
+    color: white;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .odinname {
+    font-family: Norse-Bold;
+    font-size: 67.5px;
+  }
+  
+  .logo {
+    max-width: 72px;
+  }
+  
+  .credit {
+    position: absolute;
+    width: 100%;
+    bottom: 10px;
+    text-align: center;   
+    left: 10px;
+    font-size: 10px;
+    color: white;
+  }
+
+
+  .right-section {
+    justify-content: center;
+    align-items: center;  
+    width: 200%;
+    height: 200%;
+
+    background-color: #f7f6f6;
+  }
+  
+  .text-intro{
+    font-weight: bold;
+    width: 84%;
+    margin-top: 21%;
+    padding-left: 30px;
+    margin-bottom: 40px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  .text-intro p{
+    font-size: 16px;
+    color: #333;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .signup-form {
+    height: auto;
+    width: 450px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 10px;
+  }
+
+  .signup-section {
+    background-color: white;
+    height: 230px;
+    padding-left: 30px;
+    /* border: 1px solid #ddd; */
+    /* border-radius: 2px;   */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .signup-section h2 {
+    /* padding: 20px; */
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-top: 20px;
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .form-row {
+    width: 180px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    letter-spacing: 1px;
+    font-size: 8px;
+    text-transform: uppercase;
+    color: #363636;
+    font-weight: bold;
+    margin-bottom: 3px;
+  }
+  
+  input {
+    height: 22px;
+    padding: 5px;
+    font-size: 13px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  input:focus {
+    border-color: #5c82d5;
+    border: 1.7px solid #5c82d5;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2); 
+    outline: none;
+  }
+
+  #password:invalid,
+#confirm-password:invalid {
+    border-color: red;
+}
+
+  #password:invalid + .error::before {
+    content: "* Passwords do not match";
+    color: red;
+    position: fixed;
+    /* margin-top: 1px; */
+    font-size: 8.5px;
+    margin-top: 16px;
+}
+ 
+#password:valid + .error::before {
+    content: "";
+}
+
+.error {
+    
+    position: absolute; 
+    color: red;
+}
+
+  .buttons {
+    padding-left: 10px;
+  }
+
+  .buttons button{
+    margin-top: 25px;
+    margin-left: 20px;
+    width: 160px;
+  }
+
+  .buttons p{
+    margin-left: 20px;
+    margin-top: 25px;
+    font-size: 12px;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+
+  .buttons a{
+    color: #5a6b40;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .create-account-btn {
+    width: 27%;
+    padding: 10px;
+    background-color: #5a6b40;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+  
+  .create-account-btn:hover {
+    background-color: #3c6341;
+  }
+  
+  .signup-form p {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .signup-form a {
+    color: #4a7a52;
+    text-decoration: none;
+  }
+  
