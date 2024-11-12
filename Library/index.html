@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="library-container">
+        <h1>Library Management</h1>
+        
+        <div id="add-book-container">
+            <button id="addBookButton">Add New Book</button>
+        </div>
+        
+        <div id="book-form-container" class="hidden">
+            <h2>Add a New Book</h2>
+            <form id="bookForm">
+                <input type="text" id="title" placeholder="Book Title" required>
+                <input type="text" id="author" placeholder="Author" required>
+                <input type="number" id="pages" placeholder="Number of Pages" required><br>
+                <div>
+                <label for="read-status">Read:</label>
+                <input type="checkbox" id="read-status"></div><br>
+                <button type="submit">Add Book</button>
+                <button type="button" id="cancelButton">Cancel</button>
+            </form>
+        </div>
+        
+        <div id="book-list-container">
+            <h2>Books in Library</h2>
+            <div id="bookList"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

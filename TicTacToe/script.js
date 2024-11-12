@@ -1,129 +1,139 @@
-(function() {
-    var cells = document.querySelectorAll('.cell');
-    var statusText = document.getElementById('status');
-    var chooseX = document.getElementById('chooseX');
-    var chooseO = document.getElementById('chooseO');
-    var twoPlayerMode = document.getElementById('twoPlayerMode');
-    
-    var board = Array(9).fill(null);
-    var currentPlayer = 'X';
-    var userSymbol = 'X';
-    var gameActive = false;
-    var isTwoPlayerMode = false;
+var Gameboard = (function() {
+    var board = new Array(9).fill(null);
 
-    chooseX.addEventListener('click', function() { startGame('X'); });
-    chooseO.addEventListener('click', function() { startGame('O'); });
-    twoPlayerMode.addEventListener('change', function() { isTwoPlayerMode = twoPlayerMode.checked; });
-
-    function startGame(symbol) {
-        userSymbol = symbol;
-        currentPlayer = 'X';
-        board = Array(9).fill(null);
-        gameActive = true;
-        statusText.textContent = 'Turn: ' + currentPlayer;
-        
-        Array.prototype.forEach.call(cells, function(cell) {
-            cell.textContent = '';
-            cell.classList.remove('disabled');
-        });
-        
-        if (userSymbol === 'O' && !isTwoPlayerMode) {
-            computerMove();
-        }
+    function isSpotTaken(index) {
+        return board[index] !== null;
     }
 
-    Array.prototype.forEach.call(cells, function(cell) {
-        cell.addEventListener('click', handleCellClick);
-    });
-
-    function handleCellClick(event) {
-        var cell = event.target;
-        var index = cell.getAttribute('data-index');
-        
-        if (board[index] || !gameActive) return;
-
-        board[index] = currentPlayer;
-        cell.textContent = currentPlayer;
-
-        if (checkWinner()) {
-            statusText.textContent = 'Winner: ' + currentPlayer;
-            gameActive = false;
-            disableBoard();
-            return;
-        }
-
-        if (board.indexOf(null) === -1) {
-            statusText.textContent = 'Draw!';
-            gameActive = false;
-            disableBoard();
-            return;
-        }
-
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        if (isTwoPlayerMode) {
-            statusText.textContent = 'Turn: ' + currentPlayer;
-        } else {
-            if (currentPlayer !== userSymbol) {
-                setTimeout(computerMove, 1000);
-            } else {
-                statusText.textContent = 'Turn: ' + currentPlayer;
-            }
-        }
-    }
-
-    function disableBoard() {
-        Array.prototype.forEach.call(cells, function(cell) {
-            cell.classList.add('disabled');
-        });
-    }
-
-    function checkWinner() {
-        var winningCombinations = [
-            [0, 1, 2],
-            [3, 4, 5],
-            [6, 7, 8],
-            [0, 3, 6],
-            [1, 4, 7],
-            [2, 5, 8],
-            [0, 4, 8],
-            [2, 4, 6]
-        ];
-
-        for (var i = 0; i < winningCombinations.length; i++) {
-            var a = winningCombinations[i][0];
-            var b = winningCombinations[i][1];
-            var c = winningCombinations[i][2];
-            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                return true;
-            }
+    function updateSpot(index, player) {
+        if (!isSpotTaken(index)) {
+            board[index] = player.marker;
+            return true;
         }
         return false;
     }
 
-    function computerMove() {
-        var emptyCells = [];
-        for (var i = 0; i < board.length; i++) {
-            if (board[i] === null) emptyCells.push(i);
-        }
-        var randomMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-        board[randomMove] = currentPlayer;
-        cells[randomMove].textContent = currentPlayer;
+    function checkWinner() {
+        var winningCombos = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+            [0, 4, 8], [2, 4, 6]             
+        ];
 
-        if (checkWinner()) {
-            statusText.textContent = 'Winner: ' + currentPlayer;
-            gameActive = false;
-            disableBoard();
-            return;
-        }
+        for (var i = 0; i < winningCombos.length; i++) {
+            var combo = winningCombos[i];
+            var a = combo[0];
+            var b = combo[1];
+            var c = combo[2];
 
-        if (board.indexOf(null) === -1) {
-            statusText.textContent = 'Draw!';
-            gameActive = false;
-            disableBoard();
-            return;
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a];
+            }
         }
 
-        currentPlayer = userSymbol;
-        statusText.textContent = 'Turn: ' + currentPlayer;
+        if (board.every(function(spot) { return spot !== null; })) {
+            return 'tie';
+        }
+
+        return null;
     }
+
+    function reset() {
+        board.fill(null);
+    }
+
+    return {
+        board: board,
+        updateSpot: updateSpot,
+        checkWinner: checkWinner,
+        reset: reset
+    };
 })();
+
+function Player(name, marker) {
+    return {
+        name: name,
+        marker: marker
+    };
+}
+
+var GameController = (function() {
+    var currentPlayer;
+    var player1;
+    var player2;
+    var gameOver = false;
+
+    function startGame(p1Name, p2Name) {
+        player1 = Player(p1Name, 'X');
+        player2 = Player(p2Name, 'O');
+        currentPlayer = player1;
+        gameOver = false;
+        Gameboard.reset();
+        renderBoard();
+        renderStatus("It's " + currentPlayer.name + "'s turn");
+    }
+
+    function switchPlayer() {
+        currentPlayer = currentPlayer === player1 ? player2 : player1;
+    }
+
+    function makeMove(index) {
+        if (gameOver) return;
+
+        if (Gameboard.updateSpot(index, currentPlayer)) {
+            var winner = Gameboard.checkWinner();
+            if (winner) {
+                gameOver = true;
+                if (winner === 'tie') {
+                    renderStatus("It's a tie!");
+                } else {
+                    renderStatus(currentPlayer.name + " wins!");
+                }
+            } else {
+                switchPlayer();
+                renderStatus("It's " + currentPlayer.name + "'s turn");
+            }
+            renderBoard();
+        }
+    }
+
+    function renderBoard() {
+        var boardElement = document.getElementById('game');
+        boardElement.innerHTML = '';
+        for (var i = 0; i < Gameboard.board.length; i++) {
+            var spot = Gameboard.board[i];
+            var cell = document.createElement('div');
+            cell.classList.add('cell');
+            cell.textContent = spot;
+            if (spot) {
+                cell.classList.add('disabled');
+            }
+            (function(index) {
+                cell.addEventListener('click', function() {
+                    makeMove(index);
+                });
+            })(i);
+            boardElement.appendChild(cell);
+        }
+    }
+
+    function renderStatus(message) {
+        document.getElementById('status').textContent = message;
+    }
+
+    function resetGame() {
+        gameOver = false;
+        startGame(player1.name, player2.name);
+    }
+
+    return {
+        startGame: startGame,
+        resetGame: resetGame
+    };
+})();
+
+document.getElementById('startGameButton').addEventListener('click', function() {
+    var player1Name = document.getElementById('player1Name').value || 'Player 1';
+    var player2Name = document.getElementById('player2Name').value || 'Player 2';
+    GameController.startGame(player1Name, player2Name);
+});

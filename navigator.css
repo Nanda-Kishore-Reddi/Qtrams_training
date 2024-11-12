@@ -1,0 +1,77 @@
+/* Basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #f8f9fa, #e0e0e0);
+  color: #333;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-container {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+  position: relative;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.form-row {
+  margin: 15px 0;
+  position: relative;
+}
+
+label {
+  font-size: 1.2em;
+  color: #007BFF;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+label:hover {
+  color: #0056b3;
+}
+
+/* Preview text on hover */
+/* .form-row:hover::after {
+  content: attr(data-preview);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #f8f9fa;
+  color: #333;
+  padding: 8px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 8px;
+  opacity: 1;
+  z-index: 10;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.form-row::after {
+  opacity: 0;
+  transform: translateY(10px);
+} */
