@@ -41,7 +41,6 @@ body{
 }
 
 .container {
-    /* transform: scale(0.96); */
     margin-top: -5px;
     display: grid;
     width: 71%;
@@ -80,7 +79,6 @@ body{
     cursor: pointer;
 }
 
-/* Header Styles */
 .header {
     margin-left: 23px;
     width: 97%;
@@ -89,15 +87,13 @@ body{
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    /* align-items: center; */
-    height: 13  0px;
+    height: 130px;
     justify-content: space-between;
     gap: 20px;
 }
 
 .header-top {
     display: flex;
-    /* align-items: center; */
     gap: 15px;
     justify-content: space-between;
 }
@@ -111,11 +107,8 @@ body{
 
 .greeting-text-top {
     height: 50px;
-    /* display:inline-block; */
     align-items: center;
     justify-content: center;
-    /* padding: 20px; */
-    /* gap: 10px; */
     margin-top: 10px;
 }
 
@@ -138,7 +131,6 @@ body{
     justify-content: flex-start;
     align-items: center;
     gap: 10px;
-    /* flex: 1; */
     width: 450px;
 }
 
@@ -166,14 +158,12 @@ body{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* justify-content: flex-end; */
     gap: 10px;
     margin-right: 10px;
     margin-top: -10px;
 }
 
 .header-down button {
-    /* padding: 8px 18px; */
     width: 70px;
     height: 30px;
     border: none;
@@ -183,7 +173,6 @@ body{
     cursor: pointer;
     font-size: 0.7rem;
     margin-left: 5px;
-    /* justify-content: flex-end; */
 }
 
 .header-buttons {
@@ -225,7 +214,6 @@ body{
     object-fit: cover;
 }
 
-/* Main Content Styles */
 .main-content {
     margin-left: 23px;
     justify-content: flex-end;
@@ -233,15 +221,12 @@ body{
     background-color: #e0e4eb;
     padding: 20px;
     display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 20px;
-    /* width: 8; */
+    grid-template-columns: 2.5fr 1fr;
 }
 
 .projects {
     display: grid;
     height: 90%;
-    width: 110%;
     grid-template-columns: repeat(2, 1fr);
     row-gap: 20px;
     column-gap: 30px;   
@@ -261,13 +246,13 @@ body{
     border-radius: 8px;
     border-left: 8px solid #f0b429;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    position: relative; /* Added to make .project-actions position relative to this card */
+    position: relative; 
 }
 
 .project-actions {
     position: absolute;
-    bottom: 20px; /* Adjust as needed */
-    right: 20px;  /* Adjust as needed */
+    bottom: 20px; 
+    right: 20px;  
     display: flex;
     justify-content: flex-end;
     font-size: 1.0rem;
@@ -278,7 +263,6 @@ body{
 
 
 .project-card h4 {
-    /* margin-bottom: 5px; */
     font-size: 0.8rem;
 }
 
@@ -290,10 +274,7 @@ body{
 
 .side-content {
     display: grid;
-    /* gap: 10px; */
-    margin-left: 20%;
     justify-content: flex-end;
-    width: 80%;
 }
 
 .announcements{
@@ -320,22 +301,14 @@ body{
     margin-bottom: -15px; 
 }
 .announcements hr{
-    /* padding: 15px; */
-    /* margin: 15px 0px 15px 0px; */
     margin-top: 10px;
     margin-bottom: 10px;
-    /* border: ; */
 }
 
 .announcement-item{
     width: 170px;
     height: 50px;
-    /* margin-bottom: 10px; */
     padding-right: 10px;
-    /* padding: 0px 20px 0px 20px; */
-    /* margin-bottom: 15px; */
-    /* margin-top: 15px; */
-    /* width: 50%; */
 }
 .trending-item {
     margin-bottom: 15px;
@@ -349,12 +322,11 @@ body{
 .announcement-item p, .trending-item p {
     font-size: 0.55rem;
     color: #555;
-    word-wrap: break-word; /* Allows long words to wrap to the next line */
-    word-break: break-word; /* Breaks words if they're too long to fit in one line */
+    word-wrap: break-word; 
+    word-break: break-word; 
     white-space: normal;
 }
 
-/* Trending Item with Avatar */
 .trending-item {
     display: flex;
     align-items: center;
