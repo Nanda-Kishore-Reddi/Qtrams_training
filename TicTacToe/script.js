@@ -1,40 +1,44 @@
 (function() {
-    const cells = document.querySelectorAll('.cell');
-    const statusText = document.getElementById('status');
-    const chooseX = document.getElementById('chooseX');
-    const chooseO = document.getElementById('chooseO');
-    const twoPlayerMode = document.getElementById('twoPlayerMode');
+    var cells = document.querySelectorAll('.cell');
+    var statusText = document.getElementById('status');
+    var chooseX = document.getElementById('chooseX');
+    var chooseO = document.getElementById('chooseO');
+    var twoPlayerMode = document.getElementById('twoPlayerMode');
     
-    let board = Array(9).fill(null);
-    let currentPlayer = 'X';
-    let userSymbol = 'X';
-    let gameActive = false;
-    let isTwoPlayerMode = false;
+    var board = Array(9).fill(null);
+    var currentPlayer = 'X';
+    var userSymbol = 'X';
+    var gameActive = false;
+    var isTwoPlayerMode = false;
 
-    // Initialize event listeners for game setup
-    chooseX.addEventListener('click', () => startGame('X'));
-    chooseO.addEventListener('click', () => startGame('O'));
-    twoPlayerMode.addEventListener('change', () => isTwoPlayerMode = twoPlayerMode.checked);
+    chooseX.addEventListener('click', function() { startGame('X'); });
+    chooseO.addEventListener('click', function() { startGame('O'); });
+    twoPlayerMode.addEventListener('change', function() { isTwoPlayerMode = twoPlayerMode.checked; });
 
-    // Start the game with the chosen symbol
     function startGame(symbol) {
         userSymbol = symbol;
         currentPlayer = 'X';
         board = Array(9).fill(null);
         gameActive = true;
-        statusText.textContent = `Turn: ${currentPlayer}`;
-        cells.forEach(cell => {
+        statusText.textContent = 'Turn: ' + currentPlayer;
+        
+        Array.prototype.forEach.call(cells, function(cell) {
             cell.textContent = '';
             cell.classList.remove('disabled');
         });
+        
+        if (userSymbol === 'O' && !isTwoPlayerMode) {
+            computerMove();
+        }
     }
 
-    // Handle cell click events
-    cells.forEach(cell => cell.addEventListener('click', handleCellClick));
+    Array.prototype.forEach.call(cells, function(cell) {
+        cell.addEventListener('click', handleCellClick);
+    });
 
     function handleCellClick(event) {
-        const cell = event.target;
-        const index = cell.getAttribute('data-index');
+        var cell = event.target;
+        var index = cell.getAttribute('data-index');
         
         if (board[index] || !gameActive) return;
 
@@ -42,40 +46,39 @@
         cell.textContent = currentPlayer;
 
         if (checkWinner()) {
-            statusText.textContent = `Winner: ${currentPlayer}`;
+            statusText.textContent = 'Winner: ' + currentPlayer;
             gameActive = false;
             disableBoard();
             return;
         }
 
-        if (!board.includes(null)) {
+        if (board.indexOf(null) === -1) {
             statusText.textContent = 'Draw!';
             gameActive = false;
             disableBoard();
             return;
         }
 
-        // Switch player or, in single-player, switch to computer's turn
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         if (isTwoPlayerMode) {
-            statusText.textContent = `Turn: ${currentPlayer}`;
+            statusText.textContent = 'Turn: ' + currentPlayer;
         } else {
             if (currentPlayer !== userSymbol) {
-                setTimeout(computerMove, 500); // Delay for computer move
+                setTimeout(computerMove, 1000);
             } else {
-                statusText.textContent = `Turn: ${currentPlayer}`;
+                statusText.textContent = 'Turn: ' + currentPlayer;
             }
         }
     }
 
-    // Disable board after game ends
     function disableBoard() {
-        cells.forEach(cell => cell.classList.add('disabled'));
+        Array.prototype.forEach.call(cells, function(cell) {
+            cell.classList.add('disabled');
+        });
     }
 
-    // Check if there is a winner
     function checkWinner() {
-        const winningCombinations = [
+        var winningCombinations = [
             [0, 1, 2],
             [3, 4, 5],
             [6, 7, 8],
@@ -86,27 +89,34 @@
             [2, 4, 6]
         ];
 
-        return winningCombinations.some(combination => {
-            const [a, b, c] = combination;
-            return board[a] && board[a] === board[b] && board[a] === board[c];
-        });
+        for (var i = 0; i < winningCombinations.length; i++) {
+            var a = winningCombinations[i][0];
+            var b = winningCombinations[i][1];
+            var c = winningCombinations[i][2];
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    // Simple AI move for single-player mode
     function computerMove() {
-        const emptyCells = board.map((cell, idx) => cell === null ? idx : null).filter(idx => idx !== null);
-        const randomMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+        var emptyCells = [];
+        for (var i = 0; i < board.length; i++) {
+            if (board[i] === null) emptyCells.push(i);
+        }
+        var randomMove = emptyCells[Math.floor(Math.random() * emptyCells.length)];
         board[randomMove] = currentPlayer;
         cells[randomMove].textContent = currentPlayer;
 
         if (checkWinner()) {
-            statusText.textContent = `Winner: ${currentPlayer}`;
+            statusText.textContent = 'Winner: ' + currentPlayer;
             gameActive = false;
             disableBoard();
             return;
         }
 
-        if (!board.includes(null)) {
+        if (board.indexOf(null) === -1) {
             statusText.textContent = 'Draw!';
             gameActive = false;
             disableBoard();
@@ -114,6 +124,6 @@
         }
 
         currentPlayer = userSymbol;
-        statusText.textContent = `Turn: ${currentPlayer}`;
+        statusText.textContent = 'Turn: ' + currentPlayer;
     }
 })();
