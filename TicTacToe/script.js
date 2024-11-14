@@ -71,6 +71,7 @@ var GameController = (function() {
         Gameboard.reset();
         renderBoard();
         renderStatus("It's " + currentPlayer.name + "'s turn");
+        
     }
 
     function switchPlayer() {
@@ -121,6 +122,16 @@ var GameController = (function() {
         document.getElementById('status').textContent = message;
     }
 
+    function disableBoard() {
+        document.getElementById('game').disabled = true;
+
+        var boardElement = document.getElementById('game');
+        var cells = boardElement.querySelectorAll('.cell');
+        cells.forEach(function(cell) {
+            cell.classList.add('disabled');
+        });
+    }
+
     function resetGame() {
         gameOver = false;
         startGame(player1.name, player2.name);
@@ -128,12 +139,44 @@ var GameController = (function() {
 
     return {
         startGame: startGame,
-        resetGame: resetGame
+        resetGame: resetGame,
+        renderBoard: renderBoard,
+        renderStatus: renderStatus,
+        disableBoard: disableBoard
     };
 })();
+var player1Name;
+var player2Name;
 
 document.getElementById('startGameButton').addEventListener('click', function() {
-    var player1Name = document.getElementById('player1Name').value || 'Player 1';
-    var player2Name = document.getElementById('player2Name').value || 'Player 2';
+    player1Name = document.getElementById('player1Name').value || 'Player 1';
+    player2Name = document.getElementById('player2Name').value || 'Player 2';
+    document.getElementById('settings').style.display = "none";
+    document.getElementById('controlButtons').style.display = "block";
     GameController.startGame(player1Name, player2Name);
+});
+
+document.getElementById('resetButton').addEventListener('click', function() {
+    GameController.renderStatus("Game reset!"); 
+    GameController.resetGame();
+    GameController.renderBoard();   
+});
+
+document.getElementById('startNewGameButton').addEventListener('click', function() {
+    document.getElementById('controlButtons').style.display = "none";
+    document.getElementById('settings').style.display = "block";
+    GameController.resetGame();
+    GameController.renderStatus("Enter Player Names to Start New Game");
+    document.getElementById('player1Name').value = "";
+    document.getElementById('player2Name').value = "";
+    // Gameboard.reset();
+    // GameController.renderBoard();
+    GameController.disableBoard();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    GameController.renderStatus("Enter Player Names to Start the Game");
+    // GameController.renderBoard();
+    GameController.disableBoard();
+    Gameboard.reset()
 });

@@ -6,13 +6,38 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: #1cb2e9;
+}
+
+#gameContainer {
+    width: 35%;
+    height: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    background-color: #f7e13f;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 #settings {
     display: flex;
     gap: 10px;
     margin-bottom: 20px;
+}
+
+#settings input {
+    width: auto;
+    padding: 10px;
+}
+
+#controlButtons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    display: none;
 }
 
 button {
@@ -31,9 +56,11 @@ button:hover {
 }
 
 #game {
+    width: 80%;
+    height: 80%;
     display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 32%);
+    grid-template-rows: repeat(3, 32%);
     gap: 8px;
     background-color: #fafafa;
     padding: 10px;
@@ -42,8 +69,8 @@ button:hover {
 }
 
 .cell {
-    width: 100px;
-    height: 100px;
+    /* width: 25%;
+    height: 25%; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -74,3 +101,11 @@ button:hover {
     font-weight: bold;
     color: #555;
 }
+
+@media (orientation: portrait) {
+    #gameContainer {
+        width: 65%;
+        height: 35%;
+    }
+}
+
