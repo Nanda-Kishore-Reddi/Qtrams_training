@@ -68,31 +68,37 @@ function renderLibrary() {
     });
 }
 
+// Selecting elements
 var addBookButton = document.getElementById('addBookButton');
-var bookFormContainer = document.getElementById('book-form-container');
+var popupOverlay = document.getElementById('popup-overlay');
 var cancelButton = document.getElementById('cancelButton');
 var bookForm = document.getElementById('bookForm');
 
+// Show popup when "Add New Book" button is clicked
 addBookButton.addEventListener('click', function() {
-    bookFormContainer.style.display = 'block';
+    popupOverlay.style.visibility='visible';
 });
 
+// Hide popup when "Cancel" button is clicked
 cancelButton.addEventListener('click', function() {
-    bookFormContainer.style.display = 'none';
+    popupOverlay.style.visibility='hidden';
 });
 
+// Form submission handling
 bookForm.addEventListener('submit', function(event) {
+    popupOverlay.style.visibility='hidden';
     event.preventDefault();
     
-    var title = document.getElementById('title').value;
-    var author = document.getElementById('author').value;
-    var pages = document.getElementById('pages').value;
+    var title = document.getElementById('title').value || "Unknown Title";
+    var author = document.getElementById('author').value || "Unknown Author";
+    var pages = document.getElementById('pages').value || 0;
     var read = document.getElementById('read-status').checked;
 
     addBookToLibrary(title, author, pages, read);
 
     bookForm.reset();
-    bookFormContainer.style.display = 'none';
+    popupOverlay.classList.add('hidden');
 });
 
+// Initial library rendering
 renderLibrary();

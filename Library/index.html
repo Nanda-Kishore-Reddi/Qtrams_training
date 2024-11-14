@@ -15,26 +15,30 @@
             <button id="addBookButton">Add New Book</button>
         </div>
         
-        <div id="book-form-container" class="hidden">
-            <h2>Add a New Book</h2>
-            <form id="bookForm">
-                <input type="text" id="title" placeholder="Book Title" required>
-                <input type="text" id="author" placeholder="Author" required>
-                <input type="number" id="pages" placeholder="Number of Pages" required><br>
-                <div>
-                <label for="read-status">Read:</label>
-                <input type="checkbox" id="read-status"></div><br>
-                <button type="submit">Add Book</button>
-                <button type="button" id="cancelButton">Cancel</button>
-            </form>
+        <!-- Popup overlay for the form -->
+        <div id="popup-overlay" class="hidden">
+            <div id="book-form-container">
+                <h2>Add a New Book</h2>
+                <form id="bookForm">
+                    <input type="text" id="title" placeholder="Book Title" >
+                    <input type="text" id="author" placeholder="Author" >
+                    <input type="number" id="pages" placeholder="Number of Pages" ><br>
+                    <div class="read-status-container">
+                        <label for="read-status">Read:</label>
+                        <input type="checkbox" id="read-status">
+                    </div>
+                    <button type="submit">Add Book</button>
+                    <button type="button" id="cancelButton">Cancel</button>
+                </form>
+            </div>
         </div>
-        
+    
         <div id="book-list-container">
             <h2>Books in Library</h2>
             <div id="bookList"></div>
         </div>
     </div>
-
+    
     <script src="script.js"></script>
 </body>
 </html>
