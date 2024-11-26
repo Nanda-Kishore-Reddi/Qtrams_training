@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fibonacci & Merge Sort</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Fibonacci & Merge Sort</h1>
+    <button onclick="displayFibonaccibox()">Fibonacci</button>
+    <button onclick="displayMergesortbox()">Merge Sort</button>
+  </header>
+
+  <main id="main">
+    <!-- Fibonacci Section -->
+    <section id="fibonacci">
+      <h2>Fibonacci Sequence</h2>
+      <label for="fibInput">Enter a number:</label>
+      <input type="number" id="fibInput" placeholder="e.g., 8">
+      <button onclick="displayFibonacci()">Generate Fibonacci</button>
+      <div id="fibResult"></div>
+    </section>
+
+    <!-- Merge Sort Section -->
+    <section id="mergeSort">
+      <h2>Merge Sort</h2>
+      <label for="sortInput">Enter numbers (comma-separated):</label>
+      <input type="text" id="sortInput" placeholder="e.g., 3, 2, 1, 13, 8, 5, 0, 1">
+      <button onclick="displayMergeSort()">Sort Array</button>
+      <div id="mergeSortResult"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

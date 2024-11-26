@@ -1,4 +1,4 @@
-var Gameboard = (function() {
+var Gameboard = (function () {
     var board = new Array(9).fill(null);
 
     function isSpotTaken(index) {
@@ -15,9 +15,9 @@ var Gameboard = (function() {
 
     function checkWinner() {
         var winningCombos = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8], 
-            [0, 3, 6], [1, 4, 7], [2, 5, 8], 
-            [0, 4, 8], [2, 4, 6]             
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6],
         ];
 
         for (var i = 0; i < winningCombos.length; i++) {
@@ -31,7 +31,7 @@ var Gameboard = (function() {
             }
         }
 
-        if (board.every(function(spot) { return spot !== null; })) {
+        if (board.every(function (spot) { return spot !== null; })) {
             return 'tie';
         }
 
@@ -42,11 +42,58 @@ var Gameboard = (function() {
         board.fill(null);
     }
 
+    function calculateProbabilities(board, currentPlayerMarker) {
+        var winner = evaluateWinner(board);
+        if (winner === 'X') return { xWin: 1, oWin: 0, draw: 0 };
+        if (winner === 'O') return { xWin: 0, oWin: 1, draw: 0 };
+        if (board.every(function (spot) { return spot !== null; })) return { xWin: 0, oWin: 0, draw: 1 };
+
+        var availableMoves = board.reduce(function (acc, spot, index) {
+            if (!spot) acc.push(index);
+            return acc;
+        }, []);
+
+        var xWins = 0, oWins = 0, draws = 0;
+        availableMoves.forEach(function (move) {
+            var newBoard = board.slice();
+            newBoard[move] = currentPlayerMarker;
+            var nextPlayer = currentPlayerMarker === 'X' ? 'O' : 'X';
+            var results = calculateProbabilities(newBoard, nextPlayer);
+            xWins += results.xWin;
+            oWins += results.oWin;
+            draws += results.draw;
+        });
+
+        var totalOutcomes = availableMoves.length;
+        return {
+            xWin: xWins / totalOutcomes,
+            oWin: oWins / totalOutcomes,
+            draw: draws / totalOutcomes
+        };
+    }
+
+    function evaluateWinner(board) {
+        var winningCombos = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+
+        for (var i = 0; i < winningCombos.length; i++) {
+            var [a, b, c] = winningCombos[i];
+            if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                return board[a];
+            }
+        }
+        return null;
+    }
+
     return {
         board: board,
         updateSpot: updateSpot,
         checkWinner: checkWinner,
-        reset: reset
+        reset: reset,
+        calculateProbabilities: calculateProbabilities
     };
 })();
 
@@ -57,7 +104,7 @@ function Player(name, marker) {
     };
 }
 
-var GameController = (function() {
+var GameController = (function () {
     var currentPlayer;
     var player1;
     var player2;
@@ -71,7 +118,7 @@ var GameController = (function() {
         Gameboard.reset();
         renderBoard();
         renderStatus("It's " + currentPlayer.name + "'s turn");
-        
+        // updateProbabilities();
     }
 
     function switchPlayer() {
@@ -93,6 +140,7 @@ var GameController = (function() {
             } else {
                 switchPlayer();
                 renderStatus("It's " + currentPlayer.name + "'s turn");
+                updateProbabilities();
             }
             renderBoard();
         }
@@ -109,8 +157,8 @@ var GameController = (function() {
             if (spot) {
                 cell.classList.add('disabled');
             }
-            (function(index) {
-                cell.addEventListener('click', function() {
+            (function (index) {
+                cell.addEventListener('click', function () {
                     makeMove(index);
                 });
             })(i);
@@ -122,14 +170,23 @@ var GameController = (function() {
         document.getElementById('status').textContent = message;
     }
 
-    function disableBoard() {
-        document.getElementById('game').disabled = true;
+    function updateProbabilities() {
+        var probabilities = Gameboard.calculateProbabilities(Gameboard.board, currentPlayer.marker);
+        var probabilitiesElement = document.getElementById('probabilities');
+        probabilitiesElement.innerHTML = `
+            <p>Player X Win %: ${(probabilities.xWin * 100).toFixed(2)}%</p>
+            <p>Player O Win %: ${(probabilities.oWin * 100).toFixed(2)}%</p>
+            <p>Draw %: ${(probabilities.draw * 100).toFixed(2)}%</p>
+        `;
+    }
 
-        var boardElement = document.getElementById('game');
-        var cells = boardElement.querySelectorAll('.cell');
-        cells.forEach(function(cell) {
-            cell.classList.add('disabled');
-        });
+    function resetProbabilities() {
+        var probabilitiesElement = document.getElementById('probabilities');
+        probabilitiesElement.innerHTML = `
+            <p>Player X Win %: 0%</p>
+            <p>Player O Win %: 0%</p>
+            <p>Draw %: 0%</p>
+        `;
     }
 
     function resetGame() {
@@ -142,41 +199,32 @@ var GameController = (function() {
         resetGame: resetGame,
         renderBoard: renderBoard,
         renderStatus: renderStatus,
-        disableBoard: disableBoard
+        resetProbabilities: resetProbabilities
     };
 })();
-var player1Name;
-var player2Name;
 
-document.getElementById('startGameButton').addEventListener('click', function() {
-    player1Name = document.getElementById('player1Name').value || 'Player 1';
-    player2Name = document.getElementById('player2Name').value || 'Player 2';
+document.getElementById('startGameButton').addEventListener('click', function () {
+    var player1Name = document.getElementById('player1Name').value || 'Player 1';
+    var player2Name = document.getElementById('player2Name').value || 'Player 2';
+    document.getElementById('gameContainer').style.height = "80%";
+    document.getElementById('status').textContent = "";
+    document.getElementById('game').style.display = "grid";
     document.getElementById('settings').style.display = "none";
     document.getElementById('controlButtons').style.display = "block";
+    document.getElementById('probabilities').style.display = "block";
+    GameController.resetProbabilities();
     GameController.startGame(player1Name, player2Name);
 });
 
-document.getElementById('resetButton').addEventListener('click', function() {
-    GameController.renderStatus("Game reset!"); 
+document.getElementById('resetButton').addEventListener('click', function () {
+    GameController.resetProbabilities();
     GameController.resetGame();
-    GameController.renderBoard();   
 });
 
-document.getElementById('startNewGameButton').addEventListener('click', function() {
+document.getElementById('startNewGameButton').addEventListener('click', function () {
     document.getElementById('controlButtons').style.display = "none";
     document.getElementById('settings').style.display = "block";
-    GameController.resetGame();
-    GameController.renderStatus("Enter Player Names to Start New Game");
-    document.getElementById('player1Name').value = "";
-    document.getElementById('player2Name').value = "";
-    // Gameboard.reset();
-    // GameController.renderBoard();
-    GameController.disableBoard();
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    GameController.renderStatus("Enter Player Names to Start the Game");
-    // GameController.renderBoard();
-    GameController.disableBoard();
-    Gameboard.reset()
+    document.getElementById('status').textContent = "";
+    document.getElementById('game').style.display = "none";
+    document.getElementById('probabilities').style.display = "none";
 });
