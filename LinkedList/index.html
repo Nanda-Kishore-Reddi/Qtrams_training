@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List UI</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Linked List Operations</h1>
+        <div>
+            <input type="text" id="valueInput" placeholder="Enter value">
+            <input type="number" id="indexInput" placeholder="Enter index (optional)">
+        </div>
+        <div>
+            <button onclick="prependNode()">Prepend</button>
+            <button onclick="appendNode()">Append</button>
+            <button onclick="insertNode()">Insert at Index</button>
+            <button onclick="removeNode()">Remove at Index</button>
+            <button onclick="popNode()">Pop</button>
+            <button onclick="findNode()">Find Value</button>
+            <button onclick="displayList()">Display List</button>
+        </div>
+        <div id="output"><strong>Linked List:</strong> List is Empty!</div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
