@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Binary Search Tree UI</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h1>Binary Search Tree</h1>
+<div class="container">
+  <div class="rowText">
+    <label for="array">Initial Array:</label>
+    <input type="text" id="array" placeholder="Enter numbers separated by commas">
+    <button onclick="initializeTree()">Initialize Tree</button>
+  </div>
+
+  <div class="rowText">
+    <label for="value">Value:</label>
+    <input type="number" id="value" placeholder="Enter a single number">
+  </div>
+
+  <div class="rowButtons">
+    <button onclick="insertValue()">Insert</button>
+    <button onclick="deleteValue()">Delete</button>
+    <button onclick="checkBalance()">Is Balanced?</button>
+    <button onclick="rebalanceTree()">Rebalance</button>
+    <button onclick="displayTree()">Show Tree</button>
+  </div>
+
+  <div class="rowButtons">
+    <button onclick="traverseTree('levelOrder')">Level Order</button>
+    <button onclick="traverseTree('preOrder')">Pre Order</button>
+    <button onclick="traverseTree('inOrder')">In Order</button>
+    <button onclick="traverseTree('postOrder')">Post Order</button>
+  </div>
+
+  <div id="tree" class="tree-visual">Tree structure Output</div>
+  <div id="output" class="output">Message Output</div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>

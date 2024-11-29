@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: rgb(59, 165, 203);
+}
+h1 {
+    color: #333;
+    text-align: center;
+
+}
+input, button {
+    padding: 10px;
+    margin: 10px;
+    font-size: 14px;
+}
+.container {
+    align-self: center;
+    justify-self: center;
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fcc2c2;
+    padding: 20px;
+    border-radius: 15px;
+}
+.tree-visual {
+    margin-top: 20px;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+.row {
+    margin-bottom: 15px;
+}
+
+button {
+    width: 30%;
+    background-color: #ffffff;
+}
+
+.rowButtons {
+    display: flex;
+    align-items: center;
+    justify-content:space-around ;
+    margin-bottom: 15px;
+}
+
+.rowText {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    margin-bottom: 15px;
+    gap: 20px
+}
+.output {
+    margin-top: 20px;
+    padding: 10px;
+    background: #e9f9e9;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+}
