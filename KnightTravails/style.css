@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+  }
+  
+  .board-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+  }
+  
+  .axis {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    font-weight: bold;
+  }
+  
+  #y-axis {
+    flex-direction: column;
+    position: absolute;
+    left: calc(50% - 225px);
+    gap: 33px;
+    margin-top: 35px;
+  }
+  
+  #x-axis {
+    justify-content: center;
+    gap: 42px;
+    margin-top: -15px; 
+  }
+  
+  .board {
+    display: grid;
+    grid-template-columns: repeat(8, 12.5%);
+    justify-content: center;
+    margin: 20px auto;
+    border: 2px solid black;
+  }
+  
+  .cell {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .cell[data-color="white"] {
+    background-color: #ffffff;
+  }
+  
+  .cell[data-color="black"] {
+    background-color: #2c1705;
+    color: white;
+  }
+  
+  .highlight {
+    background-color: #1e90ff !important; 
+    color: white;
+  }
+  
+  .target {
+    background-color: #4caf50 !important; 
+    color: white;
+  }
+  
+  .start {
+    background-color: #ff5722 !important; 
+    color: white;
+  }
+  
+  form {
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 50px;
+    margin: 5px;
+    text-align: center;
+  }
+  
+     
+    

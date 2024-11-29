@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knight Moves</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Knight Travails</h1>
+  <form id="knightForm">
+    <label>Start (x, y):
+      <input type="number" id="startX" min="0" max="7" required>
+      <input type="number" id="startY" min="0" max="7" required>
+    </label>
+    <label>Target (x, y):
+      <input type="number" id="targetX" min="0" max="7" required>
+      <input type="number" id="targetY" min="0" max="7" required>
+    </label>
+    <button type="submit">Find Path</button>
+  </form>
+  <div id="result"></div>
+  <div class="board-wrapper">
+    <div id="y-axis" class="axis"></div>
+    <div class="board" id="board"></div>
+    <div id="x-axis" class="axis"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+
