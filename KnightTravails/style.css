@@ -5,6 +5,7 @@ body {
   }
   
   .board-wrapper {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,8 +23,8 @@ body {
   #y-axis {
     flex-direction: column;
     position: absolute;
-    left: calc(50% - 225px);
-    gap: 33px;
+    left: 34%;
+    gap: 32px;
     margin-top: 35px;
   }
   

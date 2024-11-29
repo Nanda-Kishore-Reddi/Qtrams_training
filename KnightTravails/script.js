@@ -74,7 +74,7 @@ function knightMoves(start, target) {
         } else {
           cell.classList.add('highlight'); 
         }
-        cell.textContent = `[${x},${y}]`;
+        cell.textContent = `[${y},${x}]`;
       }
     });
   }
