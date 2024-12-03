@@ -14,7 +14,7 @@ body, html {
 .container {
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   padding: 20px;
   height: 100%;
 }
@@ -76,6 +76,7 @@ h2 {
 }
 
 button {
+  position: relative;
   margin: 5px;
   padding: 10px 15px;
   background: #007BFF;
