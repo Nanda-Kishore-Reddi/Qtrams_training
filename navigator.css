@@ -7,7 +7,7 @@
 
 body, html {
   font-family: 'Arial', sans-serif;
-  background-color: #f7f9fc;
+  background-color: #fffffe;
   color: #333;
 }
 
@@ -20,11 +20,11 @@ body, html {
 }
 
 .projects-container {
-  background: #ffffff;
+  background: #1e6adb;
   border-radius: 10px;
   padding: 20px;
   /* max-width: 800px; */
-  width: 60%;
+  width: 100%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -32,7 +32,7 @@ h1 {
   text-align: center;
   margin-bottom: 15px;
   font-size: 2em;
-  color: #007BFF;
+  color: #dfecf2;
 }
 
 p {
@@ -41,24 +41,38 @@ p {
   font-size: 1em;
 }
 
+#info {
+  color: #fff;
+}
+
 .project-list {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
   gap: 15px;
 }
 
 .project-card {
-  width: 100%;
+  width: 30%;
   background: #f8f9fa;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   padding: 15px;
-  flex: 1 1 calc(45% - 10px);
+  /* flex: 1 1 calc(45% - 10px); */
   min-width: 250px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   transition: transform 0.3s, box-shadow 0.3s;
 }
+
+.project-card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
 
 .project-card:hover {
   transform: scale(1.03);
@@ -68,7 +82,7 @@ p {
 h2 {
   margin-bottom: 10px;
   font-size: 1.5em;
-  color: #0056b3;
+  color: #268ddb;
 }
 
 .buttons {
@@ -79,8 +93,8 @@ button {
   position: relative;
   margin: 5px;
   padding: 10px 15px;
-  background: #007BFF;
-  color: #fff;
+  background: #aae839;
+  color: #2d52da;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -89,5 +103,21 @@ button {
 }
 
 button:hover {
-  background: #0056b3;
+  background: #dbf32a;
+}
+
+@media (max-width: 768px) {
+.project-card {
+  /* flex-basis: 45%; */
+  width: 100%;
+  margin: 10px;
+}
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+.project-card {
+  /* flex-basis: 30%; */
+  width: 40%;
+  margin: 10px;
+}
 }

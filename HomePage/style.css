@@ -409,11 +409,7 @@ footer a {
         float: left;
         margin: -4rem 1rem 1rem -3rem;
     }
-
-    .about-us-center>div {
-        /* box-shadow: none; */
-    }
-
+    
     .about-us-center {
         padding: 5%;
         margin: 5%; 
