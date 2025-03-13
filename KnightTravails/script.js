@@ -83,6 +83,7 @@ function knightMoves(start, target) {
     event.preventDefault();
   
     const startX = parseInt(document.getElementById('startX').value, 10);
+    console.log(startX)
     const startY = parseInt(document.getElementById('startY').value, 10);
     const targetX = parseInt(document.getElementById('targetX').value, 10);
     const targetY = parseInt(document.getElementById('targetY').value, 10);

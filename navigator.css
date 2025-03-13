@@ -121,3 +121,21 @@ button:hover {
   margin: 10px;
 }
 }
+
+#content {
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+}
+
+#content h1 {
+  color: #ffffff;
+}
+
+#content img {
+  width: 100%;
+}
+
+#content {
+  background-color: #087fbe;
+}

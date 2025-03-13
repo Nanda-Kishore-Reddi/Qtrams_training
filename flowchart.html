@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flowchart</title>
+    <link rel="stylesheet" href="./navigator.css">
+</head>
+<body>
+    <div id="content"></div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const project = urlParams.get('project');
+
+        if (project) {
+            const flowchartPath = `./${project}/flowchart/${project}.png`;
+            const content = document.getElementById('content');
+            content.innerHTML = `
+                <h1>${project} Flowchart</h1>
+                <img src="${flowchartPath}" alt="${project} Image">
+            `;
+        } else {
+            document.getElementById('content').innerHTML = `<p>No project selected.</p>`;
+        }
+    </script>
+</body>
+</html>
